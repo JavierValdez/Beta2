@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "772382954434",
+    "firebase_url": "https://pistio-sa.firebaseio.com",
+    "project_id": "pistio-sa",
+    "storage_bucket": "pistio-sa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:772382954434:android:c17ad8e6c26949dbc27c5b",
+        "android_client_info": {
+          "package_name": "com.javierproyect.pistio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "772382954434-a9p49ut3l9qs8n5j0hge8ssl6vlfvlg1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0Cfj4e28Uw3YLka64eUpir3HUVk_XIFo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "772382954434-a9p49ut3l9qs8n5j0hge8ssl6vlfvlg1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
