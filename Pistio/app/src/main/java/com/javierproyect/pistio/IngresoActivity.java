@@ -3,6 +3,7 @@ package com.javierproyect.pistio;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -39,6 +40,8 @@ public class IngresoActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // makeText(getApplicationContext(), "Presionar ", Toast.LENGTH_SHORT).show();
                 GrabarUsuario();
+                Intent ab= new Intent(IngresoActivity.this, AdminActivity.class);
+                startActivity(ab);
 
             }
         });
