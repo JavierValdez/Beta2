@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,16 +17,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 import static android.widget.Toast.makeText;
 
 public class IngresoActivity extends AppCompatActivity {
 
+    private DatabaseReference recibir;
+    private String us,ke;
     private Button cargar;
-    private TextView User;
-    private TextView Key;
+    private EditText User;
+    private EditText Key;
     private TextView hide;
+    private boolean login=false;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getInstance().getReference("Usuario");
 
@@ -35,14 +37,13 @@ public class IngresoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ingreso);
         cargar = (Button) findViewById(R.id.button1);
         MostrarClave();
+
         cargar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // makeText(getApplicationContext(), "Presionar ", Toast.LENGTH_SHORT).show();
-                GrabarUsuario();
-                Intent ab= new Intent(IngresoActivity.this, AdminActivity.class);
-                startActivity(ab);
 
+                RecibirUsuario();
             }
         });
 
@@ -54,7 +55,7 @@ public class IngresoActivity extends AppCompatActivity {
 
     private void MostrarClave() {
         hide = (TextView) findViewById(R.id.hiden);
-        Key = (TextView) findViewById(R.id.editText4);
+        Key = (EditText) findViewById(R.id.editText4);
         hide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +71,7 @@ public class IngresoActivity extends AppCompatActivity {
         });
     }
 
-    private void GrabarUsuario() {
+   /* private void GrabarUsuario() {
         String user, key, id = "", type = "";
         User = (TextView) findViewById(R.id.editText1);
         Key = (TextView) findViewById(R.id.editText4);
@@ -79,6 +80,46 @@ public class IngresoActivity extends AppCompatActivity {
         id = myRef.push().getKey();
         Usuario grab = new Usuario(user, key, id, type);
         myRef.child("Users").child(id).setValue(grab);
+    }*/
+
+    public void RecibirUsuario() {
+        recibir= FirebaseDatabase.getInstance().getReference();
+        User = (EditText) findViewById(R.id.editText1);
+        Key = (EditText) findViewById(R.id.editText4);
+        us = String.valueOf(User.getText());
+        ke = String.valueOf(Key.getText());
+         recibir.child("Usuario").child("Users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot recorre:dataSnapshot.getChildren()){
+                    Usuario Get=recorre.getValue(Usuario.class);
+                    /*if(Get.key.equals()&&Get.User.equals(String.valueOf(User.getText()))){
+                        Toast.makeText(getApplicationContext(),Get.id+" "+ Key.getText(),Toast.LENGTH_SHORT).show();
+                        login= false;
+                    }*/
+
+                        if (Get != null)
+                            if (ke.equals (Get.key)&&us.equals(Get.user)){
+                            Toast.makeText(getApplicationContext(), Get.user + " " + Key.getText(), Toast.LENGTH_SHORT).show();
+                            if(Get.type.equals("Administrador")){
+                                Intent ab = new Intent(IngresoActivity.this, AdminActivity.class);
+                                startActivity(ab);
+                            }
+
+                        }
+
+
+
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 

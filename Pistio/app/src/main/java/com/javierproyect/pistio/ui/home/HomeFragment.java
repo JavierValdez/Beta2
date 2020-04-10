@@ -36,6 +36,7 @@ public class HomeFragment extends Fragment {
     private EditText Key1;
     private Button btncarga;
     private View view;
+    private Spinner select;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getInstance().getReference("Usuario");
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -80,13 +81,18 @@ public class HomeFragment extends Fragment {
         Key = (EditText) view.findViewById(R.id.keyCrear);
         Key1 = (EditText) view.findViewById(R.id.keyAdmin);
         usuarioReg=(EditText) view.findViewById(R.id.usuarioCrear);
+        select=(Spinner) view.findViewById(R.id.TipoUser);
+        String a=select.getSelectedItem().toString();
+        Toast.makeText(getContext(),a,Toast.LENGTH_LONG).show();
         String user, key, id = "", type = "";
         user = String.valueOf(usuarioReg.getText());
         key = String.valueOf(Key.getText());
         id = myRef.push().getKey();
-        Usuario grab = new Usuario(user, key, id, type);
+        Usuario grab = new Usuario(user, key, id, a);
         myRef.child("Users").child(id).setValue(grab);
     }
+
+
 
 
 }
