@@ -25,10 +25,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.security.PrivateKey;
+
 import static android.widget.Toast.makeText;
 
 public class IngresoActivity extends AppCompatActivity {
     FirebaseAuthRegistrar Aut;
+    private boolean permise;
     private FirebaseAuth Autenticacion;
     private DatabaseReference recibir;
     private String us, ke;
@@ -36,6 +39,7 @@ public class IngresoActivity extends AppCompatActivity {
     private EditText User;
     private EditText Key;
     private TextView hide;
+    private FirebaseUser verify;
     private boolean login = false;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getInstance().getReference("Usuario");
@@ -46,7 +50,7 @@ public class IngresoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingreso);
         Autenticacion = FirebaseAuth.getInstance();
-
+permise=false;
         cargar = (Button) findViewById(R.id.button1);
         MostrarClave();
 
@@ -122,8 +126,9 @@ public class IngresoActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                FirebaseUser verify= Autenticacion.getCurrentUser();
+                                verify= Autenticacion.getCurrentUser();
                                 if(verify.isEmailVerified()){
+                                    permise=true;
                                     RolUsuario();
                                 }else{
                                     progres.dismiss();
@@ -149,7 +154,7 @@ public class IngresoActivity extends AppCompatActivity {
         recibir.child("Usuario").child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                if(permise)
                 for (DataSnapshot recorre : dataSnapshot.getChildren()) {
 
                     Usuario Get = recorre.getValue(Usuario.class);
@@ -161,12 +166,14 @@ public class IngresoActivity extends AppCompatActivity {
                                 Intent ab = new Intent(IngresoActivity.this, AdminActivity.class);
 
                                 finish();
+                                permise=false;
                                 startActivity(ab);
 
                             }
 
                         }
                 }
+                permise=false;
             }
 
             @Override
