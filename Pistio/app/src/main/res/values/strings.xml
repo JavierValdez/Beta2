@@ -20,7 +20,8 @@
 
     <string name="Borrar">
         Bienvenido a la pestaña Borrar Usuarios\n
-        *Ingrese el correo del Usuario a borrar\n
+        *Ingrese el Correo del Usuario a borrar\n
+        *Ingrese el Correo del Usuario a borrar\n
         *Presione el Boton Eliminar
     </string>
 

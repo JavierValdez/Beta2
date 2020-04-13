@@ -8,50 +8,50 @@
 
     <EditText
         android:id="@+id/DelUser"
-        android:layout_width="299dp"
-        android:layout_height="42dp"
+        android:layout_width="296dp"
+        android:layout_height="46dp"
         android:ems="10"
         android:hint="Ingrese el correo a Eliminar"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.758"
+        app:layout_constraintHorizontal_bias="0.773"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.342" />
+        app:layout_constraintVertical_bias="0.265" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="305dp"
-        android:layout_height="61dp"
+        android:layout_height="79dp"
         android:text="@string/Borrar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.121" />
+        app:layout_constraintVertical_bias="0.087" />
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="34dp"
-        android:layout_height="37dp"
+        android:layout_width="58dp"
+        android:layout_height="50dp"
         android:src="@mipmap/del"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/DelUser"
-        app:layout_constraintHorizontal_bias="0.745"
+        app:layout_constraintEnd_toStartOf="@+id/DelPass"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.346" />
+        app:layout_constraintVertical_bias="0.329" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="216dp"
+        android:layout_marginBottom="240dp"
         android:text="Presione para eliminar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -62,7 +62,23 @@
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.531" />
+
+    <EditText
+        android:id="@+id/DelPass"
+        android:layout_width="296dp"
+        android:layout_height="46dp"
+        android:ems="10"
+        android:hint="Ingrese contraseña del Usuario"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.773"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.394" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
