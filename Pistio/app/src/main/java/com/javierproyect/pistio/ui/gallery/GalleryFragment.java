@@ -15,14 +15,14 @@ import androidx.lifecycle.ViewModelProviders;
 import com.javierproyect.pistio.R;
 
 public class GalleryFragment extends Fragment {
-
+    private View root;
     private GalleryViewModel galleryViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         galleryViewModel =
                 ViewModelProviders.of(this).get(GalleryViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_gallery, container, false);
+        root = inflater.inflate(R.layout.fragment_gallery, container, false);
 
         return root;
     }

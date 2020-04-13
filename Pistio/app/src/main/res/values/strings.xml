@@ -12,6 +12,17 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="mensaje_crear">Bienvenido a la Pestaña crear Usuarios\n
+    *Ingrese correo a registrar en nuestro Sistema\n
+        *La contraseña debe de ser minimo de 6 caracteres\n
+        *Seleccione el Rol que desea asignar a al nuevo usuario
+    </string>
+
+    <string name="Borrar">
+        Bienvenido a la pestaña Borrar Usuarios\n
+        *Ingrese el correo del Usuario a borrar\n
+        *Presione el Boton Eliminar
+    </string>
 
     <string name="home_second">Home Second</string>
 

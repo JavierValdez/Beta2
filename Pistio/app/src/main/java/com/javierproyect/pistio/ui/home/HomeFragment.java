@@ -48,7 +48,6 @@ public class HomeFragment extends Fragment {
     private CheckBox hide;
     private EditText usuarioReg;
     private EditText Key;
-    private EditText Key1;
     private Button btncarga;
     private View view;
     private Spinner select;
@@ -80,8 +79,7 @@ public class HomeFragment extends Fragment {
 
         hide = (CheckBox) view.findViewById(R.id.CrearVer);
         Key = (EditText) view.findViewById(R.id.keyCrear);
-        Key1 = (EditText) view.findViewById(R.id.keyAdmin);
-        hide.setOnClickListener(new View.OnClickListener() {
+         hide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //145 Texto sin Ocultar
@@ -89,10 +87,10 @@ public class HomeFragment extends Fragment {
                 int n = Key.getInputType();
                 if (n == 129) {
                     Key.setInputType(145);
-                    Key1.setInputType(145);
+
                 } else {
-                    Key1.setInputType(129);
                     Key.setInputType(129);
+
                 }
             }
         });
@@ -103,14 +101,13 @@ public class HomeFragment extends Fragment {
     private void GrabarUsuarios() {
 
         Key = (EditText) view.findViewById(R.id.keyCrear);
-        Key1 = (EditText) view.findViewById(R.id.keyAdmin);
         usuarioReg=(EditText) view.findViewById(R.id.usuarioCrear);
         select=(Spinner) view.findViewById(R.id.TipoUser);
         contexto=getContext();
         final String a=select.getSelectedItem().toString();
 
         String user, key = "", type = "";
-        user = String.valueOf(usuarioReg.getText()).trim();
+        user = String.valueOf(usuarioReg.getText()).trim().toLowerCase();
         key = String.valueOf(Key.getText()).trim();
         id = myRef.push().getKey();
         grab = new Usuario(user, id, a);
@@ -131,7 +128,7 @@ public class HomeFragment extends Fragment {
         });
         Key.setText("");
         usuarioReg.setText("");
-        Key1.setText("");
+
 
        /*try{
             Autenticacion.createUserWithEmailAndPassword(user,key);

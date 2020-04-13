@@ -108,8 +108,8 @@ permise=false;
         recibir = FirebaseDatabase.getInstance().getReference();
         User = (EditText) findViewById(R.id.editText1);
         Key = (EditText) findViewById(R.id.editText4);
-        us = String.valueOf(User.getText()).trim();
-        ke = String.valueOf(Key.getText()).trim();
+        us = String.valueOf(User.getText()).replace(" ","").toLowerCase();
+        ke = String.valueOf(Key.getText()).replace(" ","");;
         progres = new ProgressDialog(IngresoActivity.this);
         progres.setMessage("Verificando sus datos");
         progres.show();
@@ -126,6 +126,7 @@ permise=false;
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+
                                 verify= Autenticacion.getCurrentUser();
                                 if(verify.isEmailVerified()){
                                     permise=true;
@@ -160,7 +161,7 @@ permise=false;
                     Usuario Get = recorre.getValue(Usuario.class);
 
                     if (Get != null)
-                        if (User.getText().toString().equals(Get.user)) {
+                        if (User.getText().toString().replace(" ","").toLowerCase().equals(Get.user)) {
                             progres.dismiss();
                             if (Get.type.equals("Administrador")) {
                                 Intent ab = new Intent(IngresoActivity.this, AdminActivity.class);
