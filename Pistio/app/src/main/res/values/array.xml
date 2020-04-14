@@ -3,7 +3,6 @@
     <string-array name="roll">
         <item>Asignador</item>
         <item>Escritorio</item>
-        <item>Pantalla</item>
         <item>Administrador</item>
     </string-array>
 

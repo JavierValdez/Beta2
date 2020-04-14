@@ -17,6 +17,7 @@
         *La contraseña debe de ser minimo de 6 caracteres\n
         *Seleccione el Rol que desea asignar a al nuevo usuario
     </string>
+    <string name="mensaje_escrito">Seleccione el ROLL que tendra este dispositivo: </string>
 
     <string name="Borrar">
         Bienvenido a la pestaña Borrar Usuarios\n

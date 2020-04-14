@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Generador"></activity>
+        <activity android:name=".VentanillaActivity"></activity>
+        <activity android:name=".PantallaActivity" />
+        <activity android:name=".EscritorioActivity" />
+        <activity android:name=".Generador" />
         <activity
             android:name=".AdminActivity"
             android:label="@string/title_activity_admin"

@@ -33,6 +33,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.javierproyect.pistio.AdminActivity;
+import com.javierproyect.pistio.Escritorio;
 import com.javierproyect.pistio.IngresoActivity;
 import com.javierproyect.pistio.MainActivity;
 import com.javierproyect.pistio.R;
@@ -106,7 +107,9 @@ public class HomeFragment extends Fragment {
         contexto=getContext();
         final String a=select.getSelectedItem().toString();
 
-        String user, key = "", type = "";
+        final String user;
+        String key = "";
+        final String type = "";
         user = String.valueOf(usuarioReg.getText()).trim().toLowerCase();
         key = String.valueOf(Key.getText()).trim();
         id = myRef.push().getKey();
@@ -119,6 +122,10 @@ public class HomeFragment extends Fragment {
                     Toast.makeText(contexto,"Creado Exitosamente "+Users.getEmail(),Toast.LENGTH_SHORT).show();
                     Users.sendEmailVerification();
                     myRef.child("Users").child(id).setValue(grab);
+                    if(grab.getType().equals("Escritorio")){
+                        Escritorio n= new Escritorio(id,grab.getUser(),"","","");
+                        myRef.child("Escritorios").child(id).setValue(n);
+                    }
 
                 }else {
                     Toast.makeText(contexto,"Correo o cantraseña Invalido",Toast.LENGTH_SHORT).show();

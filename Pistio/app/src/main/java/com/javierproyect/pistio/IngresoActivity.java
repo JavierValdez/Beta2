@@ -169,8 +169,13 @@ permise=false;
                                 permise=false;
                                 startActivity(ab);
 
-                            }else if(Get.type.equals("Escritorio")){
+                            }else if(Get.type.equals("Asignador")){
                                 Intent ab = new Intent(IngresoActivity.this, Generador.class);
+                                finish();
+                                permise=false;
+                                startActivity(ab);
+                            }else if(Get.type.equals("Escritorio")){
+                                Intent ab = new Intent(IngresoActivity.this, EscritorioActivity.class);
                                 finish();
                                 permise=false;
                                 startActivity(ab);
