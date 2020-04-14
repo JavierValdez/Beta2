@@ -7,4 +7,9 @@
         <item>Administrador</item>
     </string-array>
 
+    <string-array name="ticket">
+        <item>General</item>
+        <item>Urgente</item>
+    </string-array>
+
 </resources>

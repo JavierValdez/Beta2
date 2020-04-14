@@ -165,11 +165,15 @@ permise=false;
                             progres.dismiss();
                             if (Get.type.equals("Administrador")) {
                                 Intent ab = new Intent(IngresoActivity.this, AdminActivity.class);
-
                                 finish();
                                 permise=false;
                                 startActivity(ab);
 
+                            }else if(Get.type.equals("Escritorio")){
+                                Intent ab = new Intent(IngresoActivity.this, Generador.class);
+                                finish();
+                                permise=false;
+                                startActivity(ab);
                             }
 
                         }
