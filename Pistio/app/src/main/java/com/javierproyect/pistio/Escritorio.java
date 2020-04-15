@@ -14,6 +14,9 @@ public class Escritorio {
         this.cantidad = cantidad;
         this.nticket = nticket;
     }
+    public Escritorio(){
+
+    }
 
     public String getId() {
         return id;

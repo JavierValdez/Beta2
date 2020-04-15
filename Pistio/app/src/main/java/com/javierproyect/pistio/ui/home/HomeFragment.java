@@ -54,6 +54,7 @@ public class HomeFragment extends Fragment {
     private Spinner select;
     private FirebaseAuth Autenticacion;
     public Context contexto;
+    public FirebaseUser Users;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getInstance().getReference("Usuario");
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -118,14 +119,11 @@ public class HomeFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    FirebaseUser Users=Autenticacion.getCurrentUser();
+                    Users=Autenticacion.getCurrentUser();
                     Toast.makeText(contexto,"Creado Exitosamente "+Users.getEmail(),Toast.LENGTH_SHORT).show();
                     Users.sendEmailVerification();
                     myRef.child("Users").child(id).setValue(grab);
-                    if(grab.getType().equals("Escritorio")){
-                        Escritorio n= new Escritorio(id,grab.getUser(),"","","");
-                        myRef.child("Escritorios").child(id).setValue(n);
-                    }
+
 
                 }else {
                     Toast.makeText(contexto,"Correo o cantraseña Invalido",Toast.LENGTH_SHORT).show();
