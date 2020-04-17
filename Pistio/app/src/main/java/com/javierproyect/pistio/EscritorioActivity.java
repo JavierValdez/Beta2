@@ -25,7 +25,8 @@ public class EscritorioActivity extends AppCompatActivity {
     private Button btnEscritori;
     private Button btnPantall;
     private Escritorio Get;
-    private boolean con = false;
+    private boolean conV = false;
+    private boolean conP = false;
 
     private String id;
     private String usuario;
@@ -45,7 +46,8 @@ public class EscritorioActivity extends AppCompatActivity {
         btnEscritori.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                conV=true;
+                Validar();
             }
         });
 
@@ -53,7 +55,7 @@ public class EscritorioActivity extends AppCompatActivity {
         btnPantall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                con = true;
+                conP = true;
 
                 Validar();
 
@@ -67,48 +69,46 @@ public class EscritorioActivity extends AppCompatActivity {
     private int n = 0;
 
     public void Validar() {
-        con = true;
-        currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        /*refer.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //Escritorio n = dataSnapshot.getValue(Escritorio.class);
-                //Toast.makeText(getApplicationContext(),"Ocurre "+dataSnapshot.getValue().toString()+dataSnapshot.getValue().toString(),Toast.LENGTH_LONG).show();
-                 for (DataSnapshot recorre : dataSnapshot.getChildren()) {
-                    Get = recorre.getValue(Escritorio.class);
-                    if (Get != null) {
-                        Toast.makeText(getApplicationContext(),"Ocurre",Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });*/
+         currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         refer.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Toast.makeText(getApplicationContext(), "Llega", Toast.LENGTH_LONG).show();
 
-                if (con) {
+                if (conP||conV) {
                     for (DataSnapshot recorre : dataSnapshot.getChildren()) {
                         n++;
                         Get = recorre.getValue(Escritorio.class);
                         if (Get != null) {
-                            Toast.makeText(getApplicationContext(), Get.id, Toast.LENGTH_LONG).show();
                             if (Get.usuario.equals(currentFirebaseUser.getEmail())) {
-                                Intent ab = new Intent(getApplicationContext(), PantallaActivity.class);
-                                finish();
-                                startActivity(ab);
+                                if(conP){
+                                    Intent ab = new Intent(getApplicationContext(), PantallaActivity.class);
+                                    finish();
+                                    startActivity(ab);
+
+                                }else if(conV){
+                                    Intent ab = new Intent(getApplicationContext(), VentanillaActivity.class);
+                                    finish();
+                                    startActivity(ab);
+
+                                }
+
                                 exist = true;
+                                break;
                             }
                             if (Get.usuario.equals("")) {
                                 Escritorio grab = new Escritorio(Get.id, currentFirebaseUser.getEmail(), Get.numero, Get.cantidad, "");
                                 refer.child(Get.id).setValue(grab);
                                 exist = true;
+                                if(conP){
+                                    Intent ab = new Intent(getApplicationContext(), PantallaActivity.class);
+                                    finish();
+                                    startActivity(ab);
+                                }else if(conV) {
+                                    Intent ab = new Intent(getApplicationContext(), VentanillaActivity.class);
+                                    finish();
+                                    startActivity(ab);
+                                }
+                                exist=true;
                                 break;
                             }
                         }
@@ -118,8 +118,17 @@ public class EscritorioActivity extends AppCompatActivity {
                         numero=String.valueOf(n);
                         Escritorio grab = new Escritorio(id, currentFirebaseUser.getEmail(),numero, "0", "");
                         refer.child(id).setValue(grab);
+                        if(conP){
+                            Intent ab = new Intent(getApplicationContext(), PantallaActivity.class);
+                            finish();
+                            startActivity(ab);
+                        }else if(conV){
+                            Intent ab = new Intent(getApplicationContext(), VentanillaActivity.class);
+                            finish();
+                            startActivity(ab);
+                        }
                     }
-                    con = false;
+                    conP = false;
                     // Escritorio grab=new Escritorio(Tipo,id,numero,fechain,fechafin);
                 }
 
