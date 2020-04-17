@@ -41,7 +41,8 @@ public class Base {
     View view;
     ProgressDialog progres;
     boolean permise;
-
+    boolean permise1;
+    private DatabaseReference escritorios;
     private DatabaseReference recibir;
 
 
@@ -51,9 +52,9 @@ public class Base {
         this.cont = cont;
         Usuari = (EditText) view.findViewById(R.id.DelUser);
         Clav = (EditText) view.findViewById(R.id.DelPass);
-        recibir= FirebaseDatabase.getInstance().getReference();
+        recibir = FirebaseDatabase.getInstance().getReference();
         EditarBD = FirebaseDatabase.getInstance().getReference();
-
+        escritorios = FirebaseDatabase.getInstance().getReference("Escritorio");
     }
 
     public void BorrarUsuario() {
@@ -76,7 +77,6 @@ public class Base {
                 });
 
 
-
     }
 
     public void Logear() {
@@ -92,7 +92,7 @@ public class Base {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                permise=true;
+
                                 BorrarRoll();
                                 BorrarUsuario();
                             } else {
@@ -106,30 +106,33 @@ public class Base {
         }
     }
 
-    public void limpiar(){
+    public void limpiar() {
         Usuari.setText("");
         Clav.setText("");
     }
 
-    public void BorrarRoll(){
-         recibir.child("Usuario").child("Users").addValueEventListener(new ValueEventListener() {
+    public void BorrarRoll() {
+        permise = true;
+        permise1 = true;
+        recibir.child("Usuario").child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(permise)
+                Toast.makeText(cont, "BD ROLL", Toast.LENGTH_LONG).show();
+
+                if (permise)
                     for (DataSnapshot recorre : dataSnapshot.getChildren()) {
                         Usuario Get = recorre.getValue(Usuario.class);
                         if (Get != null)
                             if (Usuario.equals(Get.user)) {
-                                 recorre.getKey();
-                                 nuevo=new Usuario(Get.user,Get.id,Get.type);
-                                 Toast.makeText(cont,"BD ROLL",Toast.LENGTH_LONG).show();
-                                 recibir.child("Usuario").child("Users").child(Get.id).removeValue();
-                                 limpiar();
-                                 break;
+                                recorre.getKey();
+                                nuevo = new Usuario(Get.user, Get.id, Get.type);
+                                recibir.child("Usuario").child("Users").child(Get.id).removeValue();
+
+                                break;
                             }
                     }
 
-                permise=false;
+                permise = false;
             }
 
             @Override
@@ -137,6 +140,27 @@ public class Base {
 
             }
         });
+        escritorios.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (permise1) {
+                    for (DataSnapshot escri : dataSnapshot.getChildren()) {
+                        Escritorio nuevo = escri.getValue(Escritorio.class);
+                        if (Usuario.equals(nuevo.usuario)) {
+                            nuevo.usuario="";
+                            nuevo.numero="0";
+                            escritorios.child(nuevo.id).setValue(nuevo);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        limpiar();
 
 
     }
