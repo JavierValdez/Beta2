@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -13,6 +15,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.io.File;
 
 public class PantallaActivity extends AppCompatActivity {
 
@@ -31,6 +35,12 @@ public class PantallaActivity extends AppCompatActivity {
         usuarioActual= FirebaseAuth.getInstance().getCurrentUser();
         NumeroT=(TextView) findViewById(R.id.mostrarPantallaT);
         NumeroV=(TextView) findViewById(R.id.mostrarPantallaV);
+        final File newFile = new File(Environment.getExternalStorageDirectory(),"Nuevo");
+
+        newFile.mkdirs();
+        if(newFile.mkdir()){
+            Toast.makeText(getApplicationContext(),"Creado",Toast.LENGTH_LONG).show();
+        }
         refer.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

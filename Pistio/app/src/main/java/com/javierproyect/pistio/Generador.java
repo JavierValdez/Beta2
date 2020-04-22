@@ -3,6 +3,7 @@ package com.javierproyect.pistio;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +17,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.itextpdf.text.DocumentException;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -26,12 +29,14 @@ public class Generador extends AppCompatActivity {
     private Spinner tipoTicket;
     private Button generarTicket;
     private Ticket nuevo;
+    private ProgressDialog progres;
     String Tipo;
     String id;
     String numero="0";
     String fechain;
     String fechafin;
     boolean con=false;
+    private PDF GenerarPDF;
     int n;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,7 @@ public class Generador extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
         refer = database.getReference("Usuario");
+        GenerarPDF=new PDF(getApplicationContext());
 
         tipoTicket=(Spinner)findViewById(R.id.TipoTicket);
         generarTicket=(Button)findViewById(R.id.CrearTicket);
@@ -50,19 +56,19 @@ public class Generador extends AppCompatActivity {
             public void onClick(View v) {
 
                 Tipo=tipoTicket.getSelectedItem().toString();
-
-                //Ticket n= new Ticket("",id, "","", "");
-                //Usuario ab=new Usuario("javie",id,"abc");
-                //myRef.child("Tickets").child("General").child(id).setValue(n);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                 String currentDateandTime = simpleDateFormat.format(new Date());
 
                 fechafin="";
                 fechain = currentDateandTime;
                 id = myRef.push().getKey();
                 Tipo=tipoTicket.getSelectedItem().toString();
-
+                progres = new ProgressDialog(Generador.this);
+                progres.setMessage("Creando Ticket");
+                progres.show();
                 Almacenar();
+
+                progres.dismiss();
 
             }
         });
@@ -88,22 +94,31 @@ public class Generador extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(con) {
+
                     for (DataSnapshot recorre : dataSnapshot.getChildren()) {
                         Ticket Get = recorre.getValue(Ticket.class);
                         if (Get != null) {
-                            Toast.makeText(getApplicationContext(), Get.id, Toast.LENGTH_LONG).show();
-                            numero = Get.numero;
+                             numero = Get.numero;
                             n = Integer.parseInt(numero);
                             Log.d("anc", " " + n);
                             n++;
                             numero = String.valueOf(n);
-                            Toast.makeText(getApplicationContext(), Get.id+" "+numero, Toast.LENGTH_LONG).show();
 
                         }
                     }
                     con=false;
                     Ticket grab=new Ticket(Tipo,id,numero,fechain,fechafin);
+
                     myRef.child("Tickets").child(Tipo).child(id).setValue(grab);
+                    try {
+                        GenerarPDF.mPDF("TICKET DE ATENCIÓN",Tipo+"   "+numero,fechain,id);
+                        Toast.makeText(getApplicationContext(), "Creado "+Tipo+" "+numero, Toast.LENGTH_SHORT).show();
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (DocumentException e) {
+                        e.printStackTrace();
+                    }
                 }
 
             }
