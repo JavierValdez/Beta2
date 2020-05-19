@@ -34,7 +34,6 @@ public class Base {
     FirebaseAuth autenticacion;
 
 
-    FirebaseUser verify;
     String Usuario, Clave;
     EditText Usuari, Clav;
     Context cont;

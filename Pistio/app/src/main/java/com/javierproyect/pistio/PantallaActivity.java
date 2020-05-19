@@ -50,7 +50,6 @@ public class PantallaActivity extends AppCompatActivity {
                         NumeroT.setText("Ticket "+n.nticket);
                         NumeroV.setText("Ventanilla "+n.numero);
                     }
-
                 }
             }
 
@@ -59,8 +58,5 @@ public class PantallaActivity extends AppCompatActivity {
 
             }
         });
-
-
-
     }
 }

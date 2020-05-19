@@ -56,13 +56,12 @@ public class Generador extends AppCompatActivity {
             public void onClick(View v) {
 
                 Tipo=tipoTicket.getSelectedItem().toString();
-                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
                 String currentDateandTime = simpleDateFormat.format(new Date());
 
                 fechafin="";
                 fechain = currentDateandTime;
                 id = myRef.push().getKey();
-                Tipo=tipoTicket.getSelectedItem().toString();
                 progres = new ProgressDialog(Generador.this);
                 progres.setMessage("Creando Ticket");
                 progres.show();
@@ -87,6 +86,9 @@ public class Generador extends AppCompatActivity {
         }
 
     }
+
+
+
 
     public void Conteo(String c) {
 

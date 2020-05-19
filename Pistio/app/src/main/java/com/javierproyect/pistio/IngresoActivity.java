@@ -40,9 +40,7 @@ public class IngresoActivity extends AppCompatActivity {
     private EditText Key;
     private TextView hide;
     private FirebaseUser verify;
-    private boolean login = false;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getInstance().getReference("Usuario");
     private ProgressDialog progres;
 
     @Override
