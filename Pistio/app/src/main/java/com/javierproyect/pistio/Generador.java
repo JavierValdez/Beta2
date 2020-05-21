@@ -115,7 +115,6 @@ public class Generador extends AppCompatActivity {
                     try {
                         GenerarPDF.mPDF("TICKET DE ATENCIÓN",Tipo+"   "+numero,fechain,id);
                         Toast.makeText(getApplicationContext(), "Creado "+Tipo+" "+numero, Toast.LENGTH_SHORT).show();
-
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (DocumentException e) {

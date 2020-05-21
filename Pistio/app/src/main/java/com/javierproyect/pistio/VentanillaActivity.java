@@ -114,7 +114,6 @@ public class VentanillaActivity extends AppCompatActivity {
                         if (n != null) {
                             numero = n.numero;
                             tipe = n.tipo;
-                            hora1 = n.fechain;
                             ticket.child("General").child(n.id).removeValue();
                             toma = false;
                             sonar();
@@ -197,7 +196,6 @@ public class VentanillaActivity extends AppCompatActivity {
 
     private void Alerta() {
         String hora2;
-
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy");
         String currentDateandTime = simpleDateFormat.format(new Date());
         hora2 = currentDateandTime;
@@ -246,10 +244,10 @@ public class VentanillaActivity extends AppCompatActivity {
                 }
             }
         }
-
-        System.out.println("Tiempo Transcurrido " + ht + " " + mt + " " + st);
-        if(mt>3){
+        if(mt>=3){
             mp.start();
+            Toast.makeText(getApplicationContext(),"Tickets con Demasiada Espera ",Toast.LENGTH_SHORT).show();
+
         }
     }
 
@@ -291,6 +289,7 @@ public class VentanillaActivity extends AppCompatActivity {
                         Escritorio n = re.getValue(Escritorio.class);
                         if (n.usuario.equals(currentFirebaseUser.getEmail())) {
                             n.nticket = tipe + " " + numero;
+                            n.cantidad=String.valueOf(Integer.parseInt(n.cantidad)+1);
                             refer.child(localid).setValue(n);
                             break;
                         }
